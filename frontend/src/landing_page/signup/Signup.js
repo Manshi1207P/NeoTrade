@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Where the dashboard app lives once a user is authenticated.
-cconst DASHBOARD_URL = "https://neotrade-dashboard.onrender.com";
+const DASHBOARD_URL = "https://neotrade-dashboard.onrender.com";
 
 function Signup() {
   const navigate = useNavigate();
