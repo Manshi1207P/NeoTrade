@@ -1,10 +1,10 @@
 import axios from "axios";
 
 // Where the frontend (landing/login) app lives.
-const FRONTEND_URL = "https://neotrade-sg6a.onrender.com";
+const FRONTEND_URL = "https://neotrade-backend.onrender.com";
 
 const api = axios.create({
-  baseURL: "https://neotrade-sg6a.onrender.com",
+  baseURL: "https://neotrade-backend.onrender.com",
 });
 
 // Attach the JWT (if present) to every outgoing request.
