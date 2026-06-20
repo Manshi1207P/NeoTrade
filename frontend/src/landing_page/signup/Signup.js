@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Where the dashboard app lives once a user is authenticated.
-const DASHBOARD_URL = "http://localhost:3001";
+const DASHBOARD_URL = "https://neotrade-sg6a.onrender.com";
 
 function Signup() {
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ function Signup() {
     setIsSubmitting(true);
 
     try {
-      const res = await axios.post("http://localhost:3002/api/auth/signup", {
+      const res = await axios.post("https://neotrade-sg6a.onrender.com/api/auth/signup", {
         name,
         email,
         password,
