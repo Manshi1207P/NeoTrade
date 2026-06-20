@@ -1,5 +1,7 @@
 # NeoTrade
 
+[![Repo](https://img.shields.io/badge/GitHub-NeoTrade-181717?logo=github)](https://github.com/Manshi1207P/NeoTrade)
+
 NeoTrade is a full-stack stock trading platform built on the MERN stack. It pairs a public-facing marketing/landing site with a separate, authenticated trading dashboard, backed by a JWT-secured Express + MongoDB API.
 
 ## Overview
@@ -25,7 +27,21 @@ Users sign up or log in on the **frontend**, receive a JWT, and are then routed 
 
 ## Screenshots
 
+### Landing Site
 
+| Signup | Login |
+|---|---|
+| ![Signup page](https://raw.githubusercontent.com/Manshi1207P/NeoTrade/main/Images/SignupPage.png) | ![Login page](https://raw.githubusercontent.com/Manshi1207P/NeoTrade/main/Images/LoginPage.png) |
+
+![Footer](https://raw.githubusercontent.com/Manshi1207P/NeoTrade/main/Images/Frontend.png)
+
+### Trading Dashboard
+
+| Dashboard | Orders |
+|---|---|
+| ![Dashboard home](https://raw.githubusercontent.com/Manshi1207P/NeoTrade/main/Images/Dashboard1.png) | ![Orders page](https://raw.githubusercontent.com/Manshi1207P/NeoTrade/main/Images/Dashboard2.png) |
+
+![Holdings page](https://raw.githubusercontent.com/Manshi1207P/NeoTrade/main/Images/Dashboard3.png)
 
 ## Pages & Navigation
 
