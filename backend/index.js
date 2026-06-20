@@ -4,22 +4,111 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const { HoldingsModel } = require("./model/HoldingsModel");
 
 const { PositionsModel } = require("./model/PositionsModel");
 const { OrdersModel } = require("./model/OrdersModel");
+const { UserModel } = require("./model/UserModel");
+
+const { requireAuth } = require("./middleware/authMiddleware");
 
 require('node:dns/promises').setServers(['1.1.1.1', '8.8.8.8']);
 
 
 const PORT = process.env.PORT || 3002;
 const uri = process.env.MONGO_URL;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+// ---------- AUTH ROUTES ----------
+
+app.post("/api/auth/signup", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    if (!name || !email || !password) {
+      return res.status(400).json({ message: "Name, email and password are required." });
+    }
+
+    const existingUser = await UserModel.findOne({ email: email.toLowerCase() });
+    if (existingUser) {
+      return res.status(409).json({ message: "An account with this email already exists." });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new UserModel({
+      name,
+      email: email.toLowerCase(),
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+
+    const token = jwt.sign(
+      { id: newUser._id, name: newUser.name, email: newUser.email },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.status(201).json({
+      message: "Account created successfully.",
+      token,
+      user: { id: newUser._id, name: newUser.name, email: newUser.email },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong while creating your account." });
+  }
+});
+
+app.post("/api/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required." });
+    }
+
+    const user = await UserModel.findOne({ email: email.toLowerCase() });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password." });
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password." });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, name: user.name, email: user.email },
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
+    res.json({
+      message: "Logged in successfully.",
+      token,
+      user: { id: user._id, name: user.name, email: user.email },
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Something went wrong while logging in." });
+  }
+});
+
+// Returns the logged-in user's info — handy for the dashboard to verify the
+// stored token is still valid and to display the user's name.
+app.get("/api/auth/me", requireAuth, async (req, res) => {
+  res.json({ user: req.user });
+});
 
 // app.get("/addHoldings", async (req, res) => {
 //   let tempHoldings = [
@@ -190,17 +279,17 @@ app.use(bodyParser.json());
 //   res.send("Done!");
 // });
 
-app.get("/allHoldings", async (req, res) => {
+app.get("/allHoldings", requireAuth, async (req, res) => {
   let allHoldings = await HoldingsModel.find({});
   res.json(allHoldings);
 });
 
-app.get("/allPositions", async (req, res) => {
+app.get("/allPositions", requireAuth, async (req, res) => {
   let allPositions = await PositionsModel.find({});
   res.json(allPositions);
 });
 
-app.post("/newOrder", async (req, res) => {
+app.post("/newOrder", requireAuth, async (req, res) => {
   let newOrder = new OrdersModel({
     name: req.body.name,
     qty: req.body.qty,

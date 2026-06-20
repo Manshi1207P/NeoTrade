@@ -1,39 +1,23 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 // Where the dashboard app lives once a user is authenticated.
 const DASHBOARD_URL = "http://localhost:3001";
 
-function Signup() {
-  const navigate = useNavigate();
-
-  const [name, setName] = useState("");
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long.");
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      const res = await axios.post("http://localhost:3002/api/auth/signup", {
-        name,
+      const res = await axios.post("http://localhost:3002/api/auth/login", {
         email,
         password,
       });
@@ -55,25 +39,11 @@ function Signup() {
 
   return (
     <div className="container p-5 mb-5" style={{ maxWidth: "480px" }}>
-      <h1 className="text-center mb-4">Create your Neotrade account</h1>
+      <h1 className="text-center mb-4">Log in to Neotrade</h1>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
       <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-            Full name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </div>
-
         <div className="mb-3">
           <label htmlFor="email" className="form-label">
             Email address
@@ -102,34 +72,20 @@ function Signup() {
           />
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="confirmPassword" className="form-label">
-            Confirm password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-
         <button
           type="submit"
           className="btn btn-primary w-100 mt-2"
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Creating account..." : "Sign up"}
+          {isSubmitting ? "Logging in..." : "Log in"}
         </button>
       </form>
 
       <p className="text-center mt-3">
-        Already have an account? <Link to="/login">Log in</Link>
+        Don&apos;t have an account? <Link to="/signup">Sign up</Link>
       </p>
     </div>
   );
 }
 
-export default Signup;
+export default Login;
