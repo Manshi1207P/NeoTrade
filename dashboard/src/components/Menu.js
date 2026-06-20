@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Where the frontend (landing/login) app lives.
-const FRONTEND_URL = "http://localhost:3000";
+const FRONTEND_URL = "https://neotrade-sg6a.onrender.com";
 
 const Menu = () => {
   const [selectedMenu, setSelectedMenu] = useState(0);
