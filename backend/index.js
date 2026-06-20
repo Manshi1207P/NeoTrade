@@ -24,7 +24,15 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://neotrade-frontend.onrender.com",
+      "https://neotrade-dashboard.onrender.com",
+    ],
+    credentials: true,
+  })
+);
 app.use(bodyParser.json());
 
 // ---------- AUTH ROUTES ----------
