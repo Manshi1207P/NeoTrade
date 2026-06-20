@@ -37,9 +37,9 @@ Users sign up or log in on the **frontend**, receive a JWT, and are then routed 
 
 | Dashboard | Orders |
 |---|---|
-| ![Dashboard home](Images/dashboard-home.png) | ![Orders page](Images/dashboard-orders.png) |
+| ![Dashboard home](Images/Images/Dashboard1.png) | ![Orders page](Images/Images/Dashboard2.png) |
 
-![Holdings page](Images/dashboard-holdings.png)
+![Holdings page](Images/Images/Dashboard3.png)
 
 ## Pages & Navigation
 
