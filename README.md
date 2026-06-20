@@ -25,21 +25,7 @@ Users sign up or log in on the **frontend**, receive a JWT, and are then routed 
 
 ## Screenshots
 
-### Landing Site
 
-| Signup | Login |
-|---|---|
-| ![Signup page](Images/signup.png) | ![Login page](Images/login.png) |
-
-![Footer](Images/footer.png)
-
-### Trading Dashboard
-
-| Dashboard | Orders |
-|---|---|
-| ![Dashboard home](Images/Images/Dashboard1.png) | ![Orders page](Images/Images/Dashboard2.png) |
-
-![Holdings page](Images/Images/Dashboard3.png)
 
 ## Pages & Navigation
 
