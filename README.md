@@ -1,6 +1,9 @@
 # NeoTrade
 
 [![Repo](https://img.shields.io/badge/GitHub-NeoTrade-181717?logo=github)](https://github.com/Manshi1207P/NeoTrade)
+[![Live](https://img.shields.io/badge/Live-neotrade--frontend-success?logo=render)](https://neotrade-frontend.onrender.com)
+
+**Live:** [https://neotrade-frontend.onrender.com](https://neotrade-frontend.onrender.com)
 
 NeoTrade is a full-stack stock trading platform built on the MERN stack. It pairs a public-facing marketing/landing site with a separate, authenticated trading dashboard, backed by a JWT-secured Express + MongoDB API.
 
